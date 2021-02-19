@@ -7,11 +7,15 @@ const homeTeams = [];
 const awayTeams = [];
 
 //event listeners
-document.getElementById('addRowsButton').addEventListener('click',addRows);
-document.getElementById('addTeamsButton').addEventListener('click',addTeams);
-document.getElementById('populateTable').addEventListener('click',populateTable);
+document.getElementById('addDataButton').addEventListener('click',master);
 
 //functions
+function master() {
+  addRows();
+  addTeams();
+  populateTable();
+}
+
 function addRows() {
   if (!addRowsDone) {
     const table = document.getElementById('fixturesTable');
