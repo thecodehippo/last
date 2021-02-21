@@ -2,22 +2,28 @@ const apiResponse = {"api":{"results":10,"fixtures":[{"fixture_id":157385,"leagu
 
 //global variables
 const results = apiResponse.api.results;
-let addRowsDone = false;
 const homeTeams = [];
 const awayTeams = [];
 
 //event listeners
-document.getElementById('addDataButton').addEventListener('click',master);
+window.addEventListener('load', doAll);
+//document.getElementById('doAll').addEventListener('click',doAll);
 
 //functions
-function master() {
-  addRows();
-  addTeams();
-  populateTable();
+function doAll() {
+  addRows()
+  addTeams()
+  .then((returnedValue) => {
+    if (returnedValue) {
+      return populateTable();
+    } else {
+      console.log('unable to populate table')
+    }
+  })
 }
 
 function addRows() {
-  if (!addRowsDone) {
+  try {
     const table = document.getElementById('fixturesTable');
     for (let i = 0; i < results; i++) {
       var row = table.insertRow(1);
@@ -26,20 +32,38 @@ function addRows() {
       var cell2 = row.insertCell(1);
       cell2.id = `A${i}`;
     }
-    addRowsDone = true;
-  } else console.log("computer says no");
+  }
+  catch(e) {
+    console.log('there is a problem adding rows');
+  }
 }
 
 function addTeams() {
-  for (let j = 0; j < results; j++) {
-    homeTeams.push(apiResponse.api.fixtures[j].homeTeam.team_name);
-    awayTeams.push(apiResponse.api.fixtures[j].awayTeam.team_name);
-  }
+  return new Promise((resolve, reject) => {
+    try {
+        for (let j = 0; j < results; j++) {
+          homeTeams.push(apiResponse.api.fixtures[j].homeTeam.team_name);
+          awayTeams.push(apiResponse.api.fixtures[j].awayTeam.team_name);
+        }
+        resolve(true);
+    }
+    catch (e) {
+      reject(e);
+    }
+  })
 }
 
 function populateTable() {
-  for (let p = 0; p < results; p++) {
-    var homeCell = document.getElementById(`H${p}`).innerHTML = homeTeams[p];
-    var awayCell = document.getElementById(`A${p}`).innerHTML = awayTeams[p];
-  }
+  return new Promise((resolve, reject) => {
+    try {
+      for (let p = 0; p < results; p++) {
+        var homeCell = document.getElementById(`H${p}`).innerHTML = homeTeams[p];
+        var awayCell = document.getElementById(`A${p}`).innerHTML = awayTeams[p];
+      }
+      resolve(true);
+    }
+    catch (e) {
+      reject(e);
+    }
+  })
 }
