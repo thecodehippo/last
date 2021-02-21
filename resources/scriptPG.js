@@ -22,7 +22,6 @@ function doAll() {
   })
 }
 
-
 function addRows() {
   try {
     const table = document.getElementById('fixturesTable');
