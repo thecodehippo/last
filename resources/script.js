@@ -9,5 +9,9 @@ function changeColour() {
   document.getElementById('text-box').style.borderWidth = 'thick';
   document.getElementById('text-box').style.borderStyle = 'solid';
   document.getElementById('text-box').style.borderColor = rgbValue;
-  document.getElementById('text-box').innerHTML = `your colour is rgb(${col1},${col2},${col3})`;
+  if ((Math.floor(Math.random() * 2)) === 1) {
+    document.getElementById('text-box').innerHTML = `your colour is rgb(${col1},${col2},${col3})` + "<br />" + 'Hi mum';
+  } else {
+    document.getElementById('text-box').innerHTML = `your colour is rgb(${col1},${col2},${col3})` + "<br />" + 'Hi dad';
+  }
 }
